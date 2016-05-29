@@ -16,4 +16,10 @@
     <string name="signup">Don\'t have an account? Sign up.</string>
     <string name="search">Search</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="interests">Interests</string>
+
+
+    <string name="delete_btn">This is a delete button for the interests table</string>
 </resources>

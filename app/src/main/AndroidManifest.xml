@@ -42,7 +42,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".LoginActivity">
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".register.RegisterActivity">
         </activity>
         <activity android:name=".IndexActivity">
             <intent-filter>
@@ -61,6 +61,7 @@
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".register.RegisterActivityTwo"/>
     </application>
 
 </manifest>

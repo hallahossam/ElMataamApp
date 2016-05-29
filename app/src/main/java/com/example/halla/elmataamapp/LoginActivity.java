@@ -12,7 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.halla.elmataamapp.DB.DbHelper;
+import com.example.halla.elmataamapp.db.DbHelper;
+import com.example.halla.elmataamapp.register.RegisterActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -24,8 +25,6 @@ import com.facebook.login.LoginResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Arrays;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {

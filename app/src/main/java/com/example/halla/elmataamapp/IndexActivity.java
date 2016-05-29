@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.example.halla.elmataamapp.Adapters.PagerAdapter;
+import com.example.halla.elmataamapp.adapters.PagerAdapter;
 
 
 /**

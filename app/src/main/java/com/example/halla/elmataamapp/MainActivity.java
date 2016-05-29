@@ -8,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+
+import com.example.halla.elmataamapp.register.RegisterActivityTwo;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_register_main:
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                startActivity(new Intent(MainActivity.this, RegisterActivityTwo.class));
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
         }

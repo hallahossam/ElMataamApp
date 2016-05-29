@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp.DB;
+package com.example.halla.elmataamapp.db;
 
 import android.content.ContentValues;
 import android.content.Context;

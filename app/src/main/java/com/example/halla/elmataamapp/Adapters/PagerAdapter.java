@@ -1,14 +1,14 @@
-package com.example.halla.elmataamapp.Adapters;
+package com.example.halla.elmataamapp.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.example.halla.elmataamapp.Fragments.ExpertsFragment;
-import com.example.halla.elmataamapp.Fragments.MenuFragment;
-import com.example.halla.elmataamapp.Fragments.NewsFeedFragment;
-import com.example.halla.elmataamapp.Fragments.RecommendationFragment;
+import com.example.halla.elmataamapp.fragments.ExpertsFragment;
+import com.example.halla.elmataamapp.fragments.MenuFragment;
+import com.example.halla.elmataamapp.fragments.NewsFeedFragment;
+import com.example.halla.elmataamapp.fragments.RecommendationFragment;
 import com.example.halla.elmataamapp.R;
 
 /**

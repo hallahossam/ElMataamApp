@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp.DB;
+package com.example.halla.elmataamapp.db;
 
 /**
  * Created by user on 12/4/2015.

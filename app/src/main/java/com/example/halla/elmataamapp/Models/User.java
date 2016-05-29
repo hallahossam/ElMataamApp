@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp.Models;
+package com.example.halla.elmataamapp.models;
 
 import org.json.JSONObject;
 

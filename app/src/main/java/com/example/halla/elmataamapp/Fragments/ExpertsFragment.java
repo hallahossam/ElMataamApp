@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp.Fragments;
+package com.example.halla.elmataamapp.fragments;
 
 
 import android.os.Bundle;

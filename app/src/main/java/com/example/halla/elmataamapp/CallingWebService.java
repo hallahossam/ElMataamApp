@@ -10,15 +10,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-/**
- * Created by user on 3/17/2016.
- */
+
 public class CallingWebService {
     String url = "https://elmataam.azurewebsites.net/API/";
     final RequestQueue queue = VolleySingleton.getsInstance().getRequestQueue();
     Context mContext;
 
-    CallingWebService(Context context){
+    public CallingWebService(Context context){
         mContext = context;
     }
 
