@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/background">
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/our_logo"
+        android:id="@+id/img_search"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:id="@+id/tv_resname_search"
+            android:layout_marginTop="30dp"
+           android:layout_toRightOf="@+id/img_search"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:id="@+id/tv_resrate_search"
+            android:layout_below="@+id/tv_resname_search"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+</LinearLayout>
