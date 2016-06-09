@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp.Adapters;
+package com.example.halla.elmataamapp.adapters;
 
 import android.app.Dialog;
 import android.content.Context;

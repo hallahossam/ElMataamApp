@@ -9,7 +9,7 @@ import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.halla.elmataamapp.register.RegisterActivityTwo;
+import com.example.halla.elmataamapp.register.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_register_main:
-                startActivity(new Intent(MainActivity.this, RegisterActivityTwo.class));
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 break;
         }

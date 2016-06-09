@@ -1,7 +1,6 @@
 package com.example.halla.elmataamapp.register;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by Halla on 30/05/2016.
  */
-public class RegisterInterestsFragmet extends Fragment implements View.OnClickListener {
+public class RegisterTwoFragment extends Fragment implements View.OnClickListener {
     Button register;
     ImageButton addInterest;
     ExpandableHeightListView expandableHeightListView;
@@ -29,10 +28,11 @@ public class RegisterInterestsFragmet extends Fragment implements View.OnClickLi
     ListAdapter adapter;
     boolean firstTime = true;
 
-    @Nullable
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_register_two, container, false);
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_two_register, container, false);
 
         register = (Button) view.findViewById(R.id.btn_register);
         addInterest = (ImageButton) view.findViewById(R.id.btn_add_interest);

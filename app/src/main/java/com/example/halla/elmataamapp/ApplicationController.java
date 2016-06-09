@@ -1,28 +1,39 @@
 package com.example.halla.elmataamapp;
 
 import android.app.Application;
-import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 /**
  * Created by user on 2/6/2016.
  */
 public class ApplicationController extends Application {
 
-    private static ApplicationController sInstance;
+    private RequestQueue mRequestQueue;
+    private static ApplicationController mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance = this;
+        mInstance = this;
     }
 
-    public static  ApplicationController getInstance() {
-        return sInstance;
+    public static synchronized ApplicationController getInstance() {
+        return mInstance;
     }
 
-    public  static Context getAppContext(){
-        return sInstance.getApplicationContext();
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return mRequestQueue;
     }
 
+    public <T> void addToRequestQueue(Request<T> req) {
+        getRequestQueue().add(req);
+    }
 
 }

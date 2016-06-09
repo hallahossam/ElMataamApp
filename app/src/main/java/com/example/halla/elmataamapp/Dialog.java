@@ -1,8 +1,6 @@
 package com.example.halla.elmataamapp;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +30,7 @@ public class Dialog extends DialogFragment implements View.OnClickListener {
         return frag;
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_dialog, container, false);
@@ -40,7 +38,7 @@ public class Dialog extends DialogFragment implements View.OnClickListener {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view,  Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         phoneNumber = (EditText) view.findViewById(R.id.et_phone);
@@ -55,7 +53,7 @@ public class Dialog extends DialogFragment implements View.OnClickListener {
 
     }
 
-    @NonNull
+
     @Override
     public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
         android.app.Dialog dialog = super.onCreateDialog(savedInstanceState);
