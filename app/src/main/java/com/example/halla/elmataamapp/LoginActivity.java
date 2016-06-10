@@ -72,20 +72,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.btn_login:
                 final String Email = email.getText().toString();
-                String Pass = password.getText().toString();
+                final String Pass = password.getText().toString();
 
                 if (Email.isEmpty() || Pass.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter your credentials", Toast.LENGTH_LONG).show();
                 } else {
-                    //  String res = mDbHelper.login(Email, Pass);
-                    // if (res.isEmpty()) {
-                    //     Toast.makeText(LoginActivity.this, "wrong credentials", Toast.LENGTH_LONG).show();
-                    // } else {
-                    String url = "https://elmataam.azurewebsites.net/api/Mobile/registerJson";
+
+                    String url = "https://elmataam.azurewebsites.net/api/Mobile/loginJson";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
+                            if(response.equals("success")) {
+                                email.getText().clear();
+                                password.getText().clear();
+                                Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(LoginActivity.this, IndexActivity.class));
+                                finish();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -96,18 +100,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String,String> params = new HashMap<>();
-                            params.put("email",Email);
-
+                            params.put("Email",Email);
+                            params.put("Password",Pass);
                             return params;
                         }
                     };
                     ApplicationController.getInstance().addToRequestQueue(stringRequest);
-                    email.getText().clear();
-                    password.getText().clear();
-                    Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(LoginActivity.this, IndexActivity.class));
-                    finish();
-                    // }
+
                 }
                 break;
         }

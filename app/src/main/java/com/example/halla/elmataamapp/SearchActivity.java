@@ -36,7 +36,8 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         String queryRestaurant = getIntent().getExtras().getString("Query");
-        Toast.makeText(SearchActivity.this, queryRestaurant, Toast.LENGTH_SHORT).show();
+        String [] queryResult  = getIntent().getExtras().getStringArray("Response");
+        Toast.makeText(SearchActivity.this, queryResult[0], Toast.LENGTH_SHORT).show();
         resName = new String[]{"Astoria", "Prego", "Macdonald's"};
         resRate = new String[] {"4/5","5/5","3.7"};
         final RelativeLayout layout = (RelativeLayout) findViewById(R.id.rl);

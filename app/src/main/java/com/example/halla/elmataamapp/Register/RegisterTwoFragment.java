@@ -9,7 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.halla.elmataamapp.ApplicationController;
 import com.example.halla.elmataamapp.adapters.ListAdapter;
 import com.example.halla.elmataamapp.R;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
@@ -20,12 +26,19 @@ import java.util.ArrayList;
  * Created by Halla on 30/05/2016.
  */
 public class RegisterTwoFragment extends Fragment implements View.OnClickListener {
+
+    //TODO handling back button with proper action
+    //Lw user 3ml add then delete then register
+    //Handle it mn l adapter w est3';y l array list
+    //Est5dmy interface
+
     Button register;
     ImageButton addInterest;
     ExpandableHeightListView expandableHeightListView;
     EditText interest;
     ArrayList<String> interests;
     ListAdapter adapter;
+    String allInterests = "";
     boolean firstTime = true;
 
 
@@ -40,6 +53,7 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
 
         expandableHeightListView = (ExpandableHeightListView) view.findViewById(R.id.elv_interests);
 
+        interests = new ArrayList<>();
         register.setOnClickListener(this);
         addInterest.setOnClickListener(this);
         expandableHeightListView.setExpanded(true);
@@ -56,6 +70,35 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
                 }
                 else{
                     //Send to WS
+                    ArrayList<String> temp = adapter.interestList();
+                    if(temp.isEmpty()){
+                        Toast.makeText(getContext(),"Insert Interests to build your profile", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        for(int i=0;i<temp.size();i++){
+                            if(i == 0)
+                            {
+                                allInterests += temp.get(i);
+                            }
+                           else
+                                allInterests += "," + temp.get(i);
+                        }
+                        String url = "https://elmataam.azurewebsites.net/api/Mobile/registerJson";
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        }) {
+
+                        };
+                        ApplicationController.getInstance().addToRequestQueue(stringRequest);
+                    }
                 }
                 break;
 
@@ -76,9 +119,12 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
                    else{
                         adapter.notifyDataSetChanged();
                     }
+                    interest.setText("");
                 }
 
 
         }
     }
+
+
 }

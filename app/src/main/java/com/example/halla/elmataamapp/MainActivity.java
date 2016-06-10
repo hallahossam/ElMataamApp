@@ -6,10 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.halla.elmataamapp.register.RegisterActivity;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
 
@@ -57,11 +70,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
-        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+    public boolean onQueryTextSubmit(final String query) {
+        final String[] resp = new String[1];
+        String url = "https://elmataam.azurewebsites.net/api/Mobile/SearchJson?keyWord=" + query;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
-        intent.putExtra("Query",query);
-        startActivity(intent);
+                Log.v("Response",response.toString());
+                Toast.makeText(MainActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+//                intent.putExtra("Query",query);
+//                intent.putExtra("Response",resp);
+//                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error",error.toString());
+            }
+        });
+
+//        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//
+//                Log.v("Response",response);
+//                Toast.makeText(MainActivity.this,response,Toast.LENGTH_SHORT).show();
+////                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+////                intent.putExtra("Query",query);
+////                intent.putExtra("Response",resp);
+////                startActivity(intent);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.v("error",error.toString());
+//            }
+//        });
+          ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
+
         return true;
     }
 

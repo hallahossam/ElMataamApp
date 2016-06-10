@@ -71,4 +71,8 @@ public class ListAdapter extends BaseAdapter {
         TextView interest;
         ImageButton delete;
     }
+
+    public ArrayList<String> interestList(){
+        return mInterests;
+    }
 }
