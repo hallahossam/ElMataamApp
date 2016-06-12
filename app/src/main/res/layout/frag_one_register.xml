@@ -24,7 +24,7 @@
         android:id="@+id/et_email_register"
         android:hint="@string/email"
         android:maxLines="1"
-        android:inputType="textEmailAddress"
+        android:inputType="textWebEmailAddress"
         android:layout_marginTop="30dp"
         android:textColorHint="@color/black"
         android:textColor="@color/black"

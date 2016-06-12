@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Log.v("Response",response.toString());
                 Toast.makeText(MainActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-//                intent.putExtra("Query",query);
+              Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+//             intent.putExtra("Query",query);
 //                intent.putExtra("Response",resp);
-//                startActivity(intent);
+               startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override

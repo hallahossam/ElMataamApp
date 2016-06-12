@@ -62,7 +62,7 @@
                 android:drawablePadding="5dp"
                 android:drawableLeft="@drawable/password"
                 android:layout_centerHorizontal="true"
-                android:inputType="textWebEmailAddress"
+                android:inputType="textPassword"
                 android:id="@+id/et_pass"
                 />
 

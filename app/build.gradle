@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -29,5 +30,7 @@ dependencies {
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
+    compile 'com.google.android.gms:play-services:9.0.2'
+    compile 'com.android.support:multidex:1.0.0'
     compile project(':volley')
 }

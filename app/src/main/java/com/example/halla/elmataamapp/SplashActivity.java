@@ -20,14 +20,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_splash);
-         circularFillableLoaders = (CircularFillableLoaders)findViewById(R.id.circularFillableLoaders);
+        circularFillableLoaders = (CircularFillableLoaders)findViewById(R.id.circularFillableLoaders);
 
-         customHandler = new android.os.Handler();
+        customHandler = new android.os.Handler();
         customHandler.postDelayed(updateTimerThread, 500);
-
-
-
-
     }
     private Runnable updateTimerThread = new Runnable()
     {
