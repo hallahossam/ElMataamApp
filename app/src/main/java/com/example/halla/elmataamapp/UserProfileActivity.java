@@ -11,6 +11,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_user_profile);
+        setContentView(R.layout.frag_user_profile);
     }
 }

@@ -2,16 +2,26 @@ package com.example.halla.elmataamapp;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.astuetz.PagerSlidingTabStrip;
 import com.example.halla.elmataamapp.adapters.PagerAdapter;
+
+import org.json.JSONObject;
 
 
 /**
@@ -21,7 +31,7 @@ public class IndexActivity extends AppCompatActivity implements android.support.
 
     ViewPager pager;
     PagerAdapter adapter;
-    SharedPreferences sharedPreferences;
+    String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +41,7 @@ public class IndexActivity extends AppCompatActivity implements android.support.
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        userEmail = getIntent().getExtras().getString("userEmail");
 
         adapter = new PagerAdapter(getSupportFragmentManager());
         pager = (ViewPager) findViewById(R.id.pager);
@@ -66,7 +77,26 @@ public class IndexActivity extends AppCompatActivity implements android.support.
 
     @Override
     public boolean onQueryTextSubmit(String s) {
-        return false;
+        String url = "https://elmataam.azurewebsites.net/api/Mobile/SearchJson?keyWord=" + s;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                String jsonResponse = response.toString();
+                Log.v("Response",jsonResponse);
+                Toast.makeText(IndexActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(IndexActivity.this, SearchActivity.class);
+                intent.putExtra("Response",jsonResponse);
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error",error.toString());
+            }
+        });
+
+        ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
+        return true;
     }
 
     @Override

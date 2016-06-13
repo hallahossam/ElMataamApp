@@ -35,7 +35,6 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
     Button save;
     CheckBox mCheckBox;
     String errorMessage = "Required";
-    SharedPreferences sharedPreferences;
     ProgressBar mProgressBar;
 
     @Override
@@ -100,10 +99,11 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
                                 public void onResponse(String response) {
                                     mProgressBar.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
-                                    if(response.charAt(1) == 'S'){
+
+                                    if(response.charAt(1) == 'S' && response.charAt(2) == 'o' && response.charAt(3) == 'm'){
                                         Snackbar.make(email,response,Snackbar.LENGTH_SHORT).show();
                                     }
-                                    else if (response.charAt(1) == 'U'){
+                                    else if (response.charAt(1) == 'U' && response.charAt(2) == 's' && response.charAt(3) == 'e'){
                                         Snackbar.make(email,response,Snackbar.LENGTH_SHORT).show();
                                     }
                                     else{

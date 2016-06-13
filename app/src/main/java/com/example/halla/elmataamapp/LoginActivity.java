@@ -87,11 +87,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         public void onResponse(String response) {
                             mProgressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
-                            if(response.equals("success")) {
+                            if(response.charAt(1) == 's') {
                                 email.getText().clear();
                                 password.getText().clear();
                                 Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(LoginActivity.this, IndexActivity.class));
+                                Intent intent = new Intent(LoginActivity.this, IndexActivity.class);
+                                intent.putExtra("userEmail",Email);
+                                startActivity(intent);
                                 finish();
                             }
                         }

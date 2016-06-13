@@ -1,5 +1,6 @@
 package com.example.halla.elmataamapp.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.halla.elmataamapp.ApplicationController;
+import com.example.halla.elmataamapp.IndexActivity;
 import com.example.halla.elmataamapp.adapters.ListAdapter;
 import com.example.halla.elmataamapp.R;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
@@ -43,6 +45,7 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
     ListAdapter adapter;
     String allInterests = "";
     boolean firstTime = true;
+    String userEmail, userId;
 
 
 
@@ -55,6 +58,10 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
         interest = (EditText) view.findViewById(R.id.et_interests);
 
         expandableHeightListView = (ExpandableHeightListView) view.findViewById(R.id.elv_interests);
+        Bundle bundle = getArguments();
+        userEmail = bundle.getString("userEmail");
+        userId = bundle.getString("userId");
+
 
         interests = new ArrayList<>();
         register.setOnClickListener(this);
@@ -86,12 +93,14 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
                            else
                                 allInterests += "," + temp.get(i);
                         }
-                        Toast.makeText(getContext(),allInterests.indexOf(0), Toast.LENGTH_SHORT).show();
-                        String url = "https://elmataam.azurewebsites.net/api/Mobile/registerJson";
+                        Toast.makeText(getContext(),allInterests, Toast.LENGTH_SHORT).show();
+                        String url = "https://elmataam.azurewebsites.net/api/Mobile/registerInterestsJson";
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
+                                if(response.charAt(1) == 's'){
+                                    startActivity(new Intent(getContext(), IndexActivity.class));
+                                }
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -102,6 +111,7 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Map<String,String> params = new HashMap<>();
+                                params.put("UserId",userId);
                                 params.put("interests",allInterests);
                                 return params;
                             }

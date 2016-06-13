@@ -73,18 +73,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public boolean onQueryTextSubmit(final String query) {
-        final String[] resp = new String[1];
+    public boolean onQueryTextSubmit(String query) {
         String url = "https://elmataam.azurewebsites.net/api/Mobile/SearchJson?keyWord=" + query;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 mProgressBar.setVisibility(View.INVISIBLE);
-                Log.v("Response",response.toString());
+                String jsonResponse = response.toString();
+                Log.v("Response",jsonResponse);
                 Toast.makeText(MainActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
               Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-//             intent.putExtra("Query",query);
-//                intent.putExtra("Response",resp);
+               intent.putExtra("Response",jsonResponse);
                startActivity(intent);
             }
         }, new Response.ErrorListener() {
@@ -94,23 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-//        StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//                Log.v("Response",response);
-//                Toast.makeText(MainActivity.this,response,Toast.LENGTH_SHORT).show();
-////                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-////                intent.putExtra("Query",query);
-////                intent.putExtra("Response",resp);
-////                startActivity(intent);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.v("error",error.toString());
-//            }
-//        });
           ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
         mProgressBar.setVisibility(View.VISIBLE);
         return true;

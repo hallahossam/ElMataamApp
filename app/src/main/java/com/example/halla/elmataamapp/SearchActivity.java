@@ -74,15 +74,22 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
 
         resName = new ArrayList<>();
         resRate = new ArrayList<>();
-      //  String queryRestaurant = getIntent().getExtras().getString("Query");
-       // String [] queryResult  = getIntent().getExtras().getStringArray("Response");
-      //  Toast.makeText(SearchActivity.this, queryResult[0], Toast.LENGTH_SHORT).show();
-        resName.add("Astoria");
-        resName.add("Prego");
-        resName.add("Mac");
-        resRate.add("4.6");
-        resRate.add("5.6");
-        resRate.add("3.6");
+        String queryResult = getIntent().getExtras().getString("Response");
+        try {
+            JSONObject jsonObject = new JSONObject(queryResult);
+            JSONArray jsonArray = jsonObject.getJSONArray("result");
+            int length = jsonArray.length();
+            JSONObject object;
+            for(int i=0;i<length;i++){
+                object = jsonArray.getJSONObject(i);
+                resName.add(object.getString("Name"));
+                resRate.add(object.getString("OverallRate"));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         final RelativeLayout layout = (RelativeLayout) findViewById(R.id.rl);
         if (checkPlayServices()) {
@@ -148,9 +155,25 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new JSONObject(params), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        //   Toast.makeText(SearchActivity.this,response.toString(),Toast.LENGTH_LONG).show();
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("result");
+                            int length = jsonArray.length();
+                            JSONObject object;
+                            JSONObject restaurants;
+                            resName.clear();
+                            resRate.clear();
+                            for(int i=0;i<length;i++){
+                                object = jsonArray.getJSONObject(i);
+                                restaurants = object.getJSONObject("resturant");
+                                resName.add(restaurants.getString("Name"));
+                                resRate.add(restaurants.getString("ExpertRate"));
 
-                           Toast.makeText(SearchActivity.this,response.toString(),Toast.LENGTH_LONG).show();
-
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mCustomAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
                     @Override
