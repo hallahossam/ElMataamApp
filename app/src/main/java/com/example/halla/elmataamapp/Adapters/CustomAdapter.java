@@ -12,16 +12,18 @@ import android.widget.TextView;
 
 import com.example.halla.elmataamapp.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by user on 3/20/2016.
  */
 public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
-    String []  restaurantName;
-    String [] restaurantRate;
+    ArrayList<String>  restaurantName;
+    ArrayList<String>  restaurantRate;
    // int [] restaurantImage;
     Context mContext;
 
-    public CustomAdapter(String [] resName, String [] rate, Context context){
+    public CustomAdapter(ArrayList<String>  resName, ArrayList<String>  rate, Context context){
         restaurantName = resName;
         this.restaurantRate = rate;
         mContext = context;
@@ -29,12 +31,12 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
 
     @Override
     public int getCount() {
-        return restaurantName.length;
+        return restaurantName.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return restaurantName[i];
+        return restaurantName.get(i);
     }
 
     @Override
@@ -58,8 +60,8 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             viewHolder = (ViewHolder) view.getTag();
 
         }
-        viewHolder.restName.setText(restaurantName[i]);
-        viewHolder.resRate.setText(restaurantRate[i]);
+        viewHolder.restName.setText(restaurantName.get(i));
+        viewHolder.resRate.setText(restaurantRate.get(i));
         viewHolder.restImage.setOnClickListener(this);
         //viewHolder.restImage.setImageResource(restaurantImage[i]);
         return view;

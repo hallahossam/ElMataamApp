@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,7 +36,7 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
     CheckBox mCheckBox;
     String errorMessage = "Required";
     SharedPreferences sharedPreferences;
-
+    ProgressBar mProgressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
 
         mCheckBox = (CheckBox) view.findViewById(R.id.cb_conditions);
         save = (Button) view.findViewById(R.id.btn_save);
+
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         save.setOnClickListener(this);
         return view;
@@ -91,19 +94,30 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
                         }
                         else{
                             String url = "https://elmataam.azurewebsites.net/api/Mobile/registerJson";
-                            //String url = "http://10.0.3.2:52183/api/Mobile/registerJson";
+
                             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+                                    mProgressBar.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
-                                    if(response.charAt(1) == 's'){
+                                    if(response.charAt(1) == 'S'){
+                                        Snackbar.make(email,response,Snackbar.LENGTH_SHORT).show();
+                                    }
+                                    else if (response.charAt(1) == 'U'){
+                                        Snackbar.make(email,response,Snackbar.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        String userId = "";
+                                        for(int i=1;i<response.length()-1;i++){
+                                            userId+=response.charAt(i);
+                                        }
                                         email.getText().clear();
                                         password.getText().clear();
                                         confirmPassword.getText().clear();
                                         name.getText().clear();
                                         phone.getText().clear();
                                         mCheckBox.setChecked(false);
-                                        ((OnComplete)getActivity()).onComplete(Email);
+                                        ((OnComplete)getActivity()).onComplete(Email, userId);
                                     }
                                 }
                             }, new Response.ErrorListener() {
@@ -123,6 +137,7 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
                                 }
                             };
                             ApplicationController.getInstance().addToRequestQueue(stringRequest);
+                            mProgressBar.setVisibility(View.VISIBLE);
                         }
                     }
                     else{
@@ -134,6 +149,6 @@ public class RegisterOneFragment extends Fragment implements View.OnClickListene
     }
 
     public static interface OnComplete{
-        public abstract void onComplete (String userEmail);
+        public abstract void onComplete (String userEmail, String userId);
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView register, forgetPassword;
     EditText email, password;
     Button login;
+    ProgressBar mProgressBar;
 
 
     DbHelper mDbHelper = new DbHelper(LoginActivity.this);
@@ -42,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         forgetPassword = (TextView) findViewById(R.id.tv_forgetpass);
         register = (TextView) findViewById(R.id.tv_register_login);
         login = (Button) findViewById(R.id.btn_login);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         forgetPassword.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -82,6 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            mProgressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
                             if(response.equals("success")) {
                                 email.getText().clear();
@@ -106,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     };
                     ApplicationController.getInstance().addToRequestQueue(stringRequest);
-
+                    mProgressBar.setVisibility(View.VISIBLE);
                 }
                 break;
         }

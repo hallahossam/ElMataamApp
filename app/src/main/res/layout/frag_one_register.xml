@@ -8,7 +8,13 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     tools:context=".register.RegisterActivity">
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:indeterminateDrawable="@drawable/progress"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

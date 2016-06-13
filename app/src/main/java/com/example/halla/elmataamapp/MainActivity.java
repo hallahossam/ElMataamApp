@@ -9,6 +9,7 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button login, register;
     SearchView mSearchView;
     SearchManager mSearchManager;
-
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         login = (Button) findViewById(R.id.btn_login_main);
         register = (Button) findViewById(R.id.btn_register_main);
         mSearchView = (SearchView) findViewById(R.id.sv_search);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         mSearchView.setIconified(false);
         mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         mSearchView.setSearchableInfo(mSearchManager.getSearchableInfo(getComponentName()));
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                mProgressBar.setVisibility(View.INVISIBLE);
                 Log.v("Response",response.toString());
                 Toast.makeText(MainActivity.this,response.toString(),Toast.LENGTH_SHORT).show();
               Intent intent = new Intent(MainActivity.this, SearchActivity.class);
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
           ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
-
+        mProgressBar.setVisibility(View.VISIBLE);
         return true;
     }
 

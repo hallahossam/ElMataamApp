@@ -2,7 +2,9 @@ package com.example.halla.elmataamapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
@@ -11,7 +13,7 @@ import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 3000;
+
     int progress = 0;
     android.os.Handler customHandler;
     CircularFillableLoaders circularFillableLoaders;
@@ -20,8 +22,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_splash);
-        circularFillableLoaders = (CircularFillableLoaders)findViewById(R.id.circularFillableLoaders);
 
+
+        circularFillableLoaders = (CircularFillableLoaders)findViewById(R.id.circularFillableLoaders);
+         String android_id = Settings.Secure.getString(SplashActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        startService(new Intent(this,RegistrationService.class));
+        Log.v("device id",android_id);
         customHandler = new android.os.Handler();
         customHandler.postDelayed(updateTimerThread, 500);
     }

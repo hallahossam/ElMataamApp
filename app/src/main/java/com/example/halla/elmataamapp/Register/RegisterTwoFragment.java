@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,6 +22,8 @@ import com.example.halla.elmataamapp.R;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Halla on 30/05/2016.
@@ -83,6 +86,7 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
                            else
                                 allInterests += "," + temp.get(i);
                         }
+                        Toast.makeText(getContext(),allInterests.indexOf(0), Toast.LENGTH_SHORT).show();
                         String url = "https://elmataam.azurewebsites.net/api/Mobile/registerJson";
                         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
@@ -95,7 +99,12 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
 
                             }
                         }) {
-
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> params = new HashMap<>();
+                                params.put("interests",allInterests);
+                                return params;
+                            }
                         };
                         ApplicationController.getInstance().addToRequestQueue(stringRequest);
                     }

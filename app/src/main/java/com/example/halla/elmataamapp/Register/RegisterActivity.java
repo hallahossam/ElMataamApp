@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterOneFr
     }
 
     @Override
-    public void onComplete(String userEmail) {
+    public void onComplete(String userEmail, String iserId) {
         Fragment secondRegisterScreen = new RegisterTwoFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment,secondRegisterScreen).commit();
     }

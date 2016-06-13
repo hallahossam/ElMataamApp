@@ -5,16 +5,25 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.halla.elmataamapp.adapters.CustomAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -24,7 +33,13 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SearchActivity extends AppCompatActivity implements FloatingActionMenu.MenuStateChangeListener,
@@ -37,6 +52,7 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
     ArrayList<String>  resRate;
      RelativeLayout layout;
     FloatingActionMenu actionMenu;
+    String lan,lot;
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
 
@@ -125,7 +141,24 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SearchActivity.this,"Location",Toast.LENGTH_SHORT).show();
+                Map<String ,String> params = new HashMap<>();
+                params.put("lan",lan);
+                params.put("longitude",lot);
+                String url = "https://elmataam.azurewebsites.net/api/Mobile/Nearby";
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new JSONObject(params), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                           Toast.makeText(SearchActivity.this,response.toString(),Toast.LENGTH_LONG).show();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SearchActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
+                ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
             }
         });
 
@@ -146,10 +179,20 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
         layout.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        displayLocation();
+       displayLocation();
     }
 
     @Override
@@ -164,7 +207,6 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
     }
 
     private void displayLocation() {
-
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -182,11 +224,12 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
         if (mLastLocation != null) {
             double latitude = mLastLocation.getLatitude();
             double longitude = mLastLocation.getLongitude();
-            Toast.makeText(SearchActivity.this,String.valueOf(latitude) + " , " + String.valueOf(longitude),Toast.LENGTH_LONG).show();
-            // et2.setText(latitude + ", " + longitude);
-
+            //Toast.makeText(SearchActivity.this,String.valueOf(latitude) + " , " + String.valueOf(longitude),Toast.LENGTH_LONG).show();
+             lan = String.valueOf(latitude);
+             lot =   String.valueOf(longitude);
         } else {
-            Toast.makeText(SearchActivity.this,"Couldn't get the location. Make sure location is enabled on the device",Toast.LENGTH_LONG).show();
+            Snackbar.make(mListView,"Couldn't get the location. Make sure location is enabled on the device",Snackbar.LENGTH_LONG).show();
+          //  Toast.makeText(SearchActivity.this,"Couldn't get the location. Make sure location is enabled on the device",Toast.LENGTH_LONG).show();
 
         }
     }
@@ -230,6 +273,12 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
         super.onResume();
 
         checkPlayServices();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
 }

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
@@ -30,7 +31,7 @@ dependencies {
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
-    compile 'com.google.android.gms:play-services:9.0.2'
+    compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.android.support:multidex:1.0.0'
     compile project(':volley')
 }
