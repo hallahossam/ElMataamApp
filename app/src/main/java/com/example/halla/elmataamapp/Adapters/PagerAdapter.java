@@ -5,22 +5,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.example.halla.elmataamapp.fragments.ExpertsFragment;
-import com.example.halla.elmataamapp.fragments.MenuFragment;
+import com.example.halla.elmataamapp.fragments.ProfileFragment;
+import com.example.halla.elmataamapp.fragments.TrustedFragment;
 import com.example.halla.elmataamapp.fragments.NewsFeedFragment;
 import com.example.halla.elmataamapp.fragments.RecommendationFragment;
 import com.example.halla.elmataamapp.R;
 
 /**
- * Created by halla on 12/19/2015.
+ * Created by halla on 12/19/2015.l
+ * ]
  */
 public class PagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
     public int[] ICONS = new int[] {
-            android.R.drawable.star_big_off,
-            android.R.drawable.star_big_on,
-            R.drawable.recommendation,
-            R.drawable.menu
+            R.drawable.ic_av_timer_black_24dp,
+           R.drawable.recommendation,
+            R.drawable.trusted,
+            R.  drawable.menu
     };
 
     public PagerAdapter(FragmentManager fm) {
@@ -33,11 +34,11 @@ public class PagerAdapter extends FragmentPagerAdapter implements PagerSlidingTa
             case 0:
                 return new NewsFeedFragment();
             case 1:
-                return new ExpertsFragment();
-            case 2:
                 return new RecommendationFragment();
+            case 2:
+                return new TrustedFragment();
             case 3:
-                return new MenuFragment();
+                return new ProfileFragment();
 
         }
         return null;
