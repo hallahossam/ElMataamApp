@@ -1,9 +1,11 @@
-package com.example.halla.elmataamapp;
+package com.example.halla.elmataamapp.notification;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.halla.elmataamapp.R;
 
 /**
  * Created by Halla on 15/06/2016.

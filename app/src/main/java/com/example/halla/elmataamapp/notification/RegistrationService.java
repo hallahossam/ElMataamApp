@@ -1,9 +1,10 @@
-package com.example.halla.elmataamapp;
+package com.example.halla.elmataamapp.notification;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.halla.elmataamapp.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 

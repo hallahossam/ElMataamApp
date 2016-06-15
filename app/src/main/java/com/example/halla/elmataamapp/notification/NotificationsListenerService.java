@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp;
+package com.example.halla.elmataamapp.notification;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.halla.elmataamapp.R;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**

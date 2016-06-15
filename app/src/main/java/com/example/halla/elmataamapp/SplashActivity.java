@@ -6,6 +6,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.halla.elmataamapp.notification.RegistrationService;
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
 /**
@@ -17,7 +18,6 @@ public class SplashActivity extends AppCompatActivity {
     int progress = 0;
     android.os.Handler customHandler;
     CircularFillableLoaders circularFillableLoaders;
-    boolean done = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +27,12 @@ public class SplashActivity extends AppCompatActivity {
         startService(i);
 
         circularFillableLoaders = (CircularFillableLoaders)findViewById(R.id.circularFillableLoaders);
-         String android_id = Settings.Secure.getString(SplashActivity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+        // String android_id = Settings.Secure.getString(SplashActivity.this.getContentResolver(),
+        //      Settings.Secure.ANDROID_ID);
+
         startService(new Intent(this,RegistrationService.class));
-        Log.v("device id",android_id);
+      //  Log.v("device id",android_id);
+
         customHandler = new android.os.Handler();
         customHandler.postDelayed(updateTimerThread, 500);
     }

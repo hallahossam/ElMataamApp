@@ -1,4 +1,4 @@
-package com.example.halla.elmataamapp;
+package com.example.halla.elmataamapp.notification;
 
 import android.content.Intent;
 
