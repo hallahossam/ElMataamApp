@@ -2,6 +2,7 @@ package com.example.halla.elmataamapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -87,12 +88,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         public void onResponse(String response) {
                             mProgressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
-                            if(response.charAt(1) == 's') {
+                            if(response.charAt(1) == 'e' && response.charAt(2) == 'r' && response.charAt(3) == 'r') {
+                                Snackbar.make(email,"Wrong email or password",Snackbar.LENGTH_LONG).show();
+                            }
+                            else{
                                 email.getText().clear();
                                 password.getText().clear();
                                 Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, IndexActivity.class);
                                 intent.putExtra("userEmail",Email);
+                                intent.putExtra("userID", response);
                                 startActivity(intent);
                                 finish();
                             }

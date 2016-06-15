@@ -31,7 +31,7 @@ public class IndexActivity extends AppCompatActivity implements android.support.
 
     ViewPager pager;
     PagerAdapter adapter;
-    String userEmail;
+    String userEmail, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,9 @@ public class IndexActivity extends AppCompatActivity implements android.support.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         userEmail = getIntent().getExtras().getString("userEmail");
+        userId = getIntent().getExtras().getString("userID");
 
-        adapter = new PagerAdapter(getSupportFragmentManager());
+        adapter = new PagerAdapter(getSupportFragmentManager(),userId);
         pager = (ViewPager) findViewById(R.id.pager);
 
         pager.setAdapter(adapter);
@@ -102,5 +103,9 @@ public class IndexActivity extends AppCompatActivity implements android.support.
     @Override
     public boolean onQueryTextChange(String s) {
         return false;
+    }
+
+    public interface onDataSend{
+        public abstract void onDataSend(String userId,String userName);
     }
 }

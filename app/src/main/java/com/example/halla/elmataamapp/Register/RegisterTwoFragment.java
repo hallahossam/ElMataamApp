@@ -45,7 +45,7 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
     ListAdapter adapter;
     String allInterests = "";
     boolean firstTime = true;
-    String userEmail, userId;
+    String userEmail, userId, userName;
 
 
 
@@ -99,7 +99,10 @@ public class RegisterTwoFragment extends Fragment implements View.OnClickListene
                             @Override
                             public void onResponse(String response) {
                                 if(response.charAt(1) == 's'){
-                                    startActivity(new Intent(getContext(), IndexActivity.class));
+                                    Intent intent = new Intent(getContext(), IndexActivity.class);
+                                    intent.putExtra("userID",userId);
+                                    intent.putExtra("userName",userName);
+                                    startActivity(intent);
                                 }
                             }
                         }, new Response.ErrorListener() {

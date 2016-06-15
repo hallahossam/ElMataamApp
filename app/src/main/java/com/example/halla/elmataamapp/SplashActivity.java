@@ -23,6 +23,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_splash);
 
+        Intent i = new Intent(this, RegistrationService.class);
+        startService(i);
 
         circularFillableLoaders = (CircularFillableLoaders)findViewById(R.id.circularFillableLoaders);
          String android_id = Settings.Secure.getString(SplashActivity.this.getContentResolver(),

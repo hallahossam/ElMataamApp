@@ -1,5 +1,6 @@
 package com.example.halla.elmataamapp.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,16 +24,21 @@ public class PagerAdapter extends FragmentPagerAdapter implements PagerSlidingTa
             R.drawable.trusted,
             R.  drawable.menu
     };
-
-    public PagerAdapter(FragmentManager fm) {
+String userId;
+    public PagerAdapter(FragmentManager fm, String userId) {
         super(fm);
+        this.userId = userId;
     }
 
     @Override
     public Fragment getItem(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
         switch (position){
             case 0:
-                return new NewsFeedFragment();
+                NewsFeedFragment newsFeedFragment = new NewsFeedFragment();
+                newsFeedFragment.setArguments(bundle);
+                return newsFeedFragment;
             case 1:
                 return new RecommendationFragment();
             case 2:
