@@ -19,12 +19,13 @@ public class NotificationsListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         super.onMessageReceived(from, data);
-        sendNotification("Received: " + data.getString("message"));
+        sendNotification("Received: " + data.getString("message"),data.getString("contentTitle"));
     }
-    private void sendNotification(String msg) {
+    private void sendNotification(String msg, String title) {
 
         Intent intent = new Intent(this, MessageView.class);
         intent.putExtra("Message", msg);
+        intent.putExtra("Title",title);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_ONE_SHOT);
@@ -32,8 +33,8 @@ public class NotificationsListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager
                 .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
-                this).setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("CCD Message").setContentText(msg)
+                this).setSmallIcon(R.drawable.small_logo)
+                .setContentTitle(title).setContentText(msg)
                 .setAutoCancel(true).setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 

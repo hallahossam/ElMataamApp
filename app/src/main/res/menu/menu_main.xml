@@ -11,4 +11,9 @@
           android:icon="@drawable/notification"
           android:title="Notification"
           app:showAsAction="always"/>
+
+    <item android:id="@+id/check_in"
+        android:icon="@drawable/check_in"
+        android:title="Check in"
+        app:showAsAction="always"/>
 </menu>

@@ -55,7 +55,6 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
     String lan,lot;
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-
     private Location mLastLocation;
 
     // Google client to interact with Google API

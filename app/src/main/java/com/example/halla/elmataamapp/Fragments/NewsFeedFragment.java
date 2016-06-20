@@ -28,7 +28,7 @@ public class NewsFeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_rating,container,false);
         Bundle bundle = getArguments();
         String userId = bundle.getString("userId");
-        Toast.makeText(getContext(),userId,Toast.LENGTH_LONG).show();
+       // Toast.makeText(getContext(),userId,Toast.LENGTH_LONG).show();
         return view;
     }
 

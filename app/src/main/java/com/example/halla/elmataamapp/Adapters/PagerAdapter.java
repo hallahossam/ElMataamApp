@@ -40,11 +40,17 @@ String userId;
                 newsFeedFragment.setArguments(bundle);
                 return newsFeedFragment;
             case 1:
-                return new RecommendationFragment();
+                RecommendationFragment recommendationFragment = new RecommendationFragment();
+                recommendationFragment.setArguments(bundle);
+                return recommendationFragment;
             case 2:
-                return new TrustedFragment();
+                TrustedFragment trustedFragment = new TrustedFragment();
+                trustedFragment.setArguments(bundle);
+                return trustedFragment;
             case 3:
-                return new ProfileFragment();
+                ProfileFragment profileFragment = new ProfileFragment();
+                profileFragment.setArguments(bundle);
+                return profileFragment;
 
         }
         return null;

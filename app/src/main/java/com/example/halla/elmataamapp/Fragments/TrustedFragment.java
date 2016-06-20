@@ -29,6 +29,9 @@ public class TrustedFragment extends Fragment {
         View view = inflater.inflate(R.layout.frag_trusted,container,false);
         listView = (ListView) view.findViewById(R.id.lv_trusted);
         listView.setEmptyView(view.findViewById(R.id.tv_empty_list));
+        Bundle bundle = getArguments();
+        String userId = bundle.getString("userId");
+
         return view;
     }
 
