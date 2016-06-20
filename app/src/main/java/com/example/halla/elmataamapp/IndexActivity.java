@@ -3,6 +3,7 @@ package com.example.halla.elmataamapp;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.astuetz.PagerSlidingTabStrip;
 import com.example.halla.elmataamapp.adapters.PagerAdapter;
 import com.google.android.gms.common.ConnectionResult;
@@ -30,7 +32,13 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -42,11 +50,12 @@ public class IndexActivity extends AppCompatActivity implements SearchView.OnQue
 
     ViewPager pager;
     PagerAdapter adapter;
-    String userEmail, userId;
+    String userEmail;
+    String[] frineds = new String[2];
     FloatingActionButton checkIn;
-
+    String [] userProfile = new String[2];
     String lan,lot;
-
+     String userId = "";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private android.location.Location mLastLocation;
 
@@ -63,9 +72,13 @@ public class IndexActivity extends AppCompatActivity implements SearchView.OnQue
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         userEmail = getIntent().getExtras().getString("userEmail");
-        userId = getIntent().getExtras().getString("userID");
+        SharedPreferences sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+         userId = sharedPreferences.getString("UserId","nothing");
 
-        adapter = new PagerAdapter(getSupportFragmentManager(), userId);
+        userProfile = getUserProfile(userId);
+         frineds = getUserTrustedFriends(userId);
+
+        adapter = new PagerAdapter(getSupportFragmentManager(), userId, userProfile);
         pager = (ViewPager) findViewById(R.id.pager);
         checkIn = (FloatingActionButton) findViewById(R.id.fab_add_trusted);
         checkIn.setOnClickListener(this);
@@ -97,8 +110,10 @@ public class IndexActivity extends AppCompatActivity implements SearchView.OnQue
         int id = item.getItemId();
         switch (id) {
             case R.id.check_in:
-                Log.v("Locationssss",lan + " " + lot);
+               // Log.v("Locationssss",lan + " " + lot);
+                Dialog.newInstance("Checking In" + userId).show(getSupportFragmentManager(), "Yay!");
                 break;
+
             //    sharedPreferences.edit().remove("loginPrefs").commit();
 
 
@@ -229,5 +244,56 @@ public class IndexActivity extends AppCompatActivity implements SearchView.OnQue
             return false;
         }
         return true;
+    }
+
+    public String [] getUserProfile(String userId){
+        String url = "https://elmataam.azurewebsites.net/api/Mobile/getUser";
+        Map<String ,String > params = new HashMap<>();
+        params.put("id", userId);
+        final String [] data = new String[2];
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.v("RESPODD",response.toString());
+                try {
+                    data[0] = response.getString("Name");
+                    data[1] = response.getString("Email");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
+        return data;
+    }
+
+    public  String [] getUserTrustedFriends(String userId){
+        String url = "https://elmataam.azurewebsites.net/api/Mobile/getTrustedUsers";
+        Map<String ,String > params = new HashMap<>();
+        params.put("UserId", userId);
+        final String [] data = new String[2];
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.v("RESPODDingoddoksfpfd",response.toString());
+                data[0] = response.toString();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        ApplicationController.getInstance().addToRequestQueue(jsonObjectRequest);
+        return data;
     }
 }

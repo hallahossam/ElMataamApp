@@ -25,9 +25,11 @@ public class PagerAdapter extends FragmentPagerAdapter implements PagerSlidingTa
             R.  drawable.menu
     };
 String userId;
-    public PagerAdapter(FragmentManager fm, String userId) {
+    String [] userProfile;
+    public PagerAdapter(FragmentManager fm, String userId, String [] userProfile) {
         super(fm);
         this.userId = userId;
+        this.userProfile = userProfile;
     }
 
     @Override
@@ -49,6 +51,7 @@ String userId;
                 return trustedFragment;
             case 3:
                 ProfileFragment profileFragment = new ProfileFragment();
+                bundle.putStringArray("userProfile",userProfile);
                 profileFragment.setArguments(bundle);
                 return profileFragment;
 

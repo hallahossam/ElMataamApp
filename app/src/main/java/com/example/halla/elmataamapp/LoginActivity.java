@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button login;
     ProgressBar mProgressBar;
     SharedPreferences sharedPreferences;
+    SharedPreferences userPreference;
+    SharedPreferences.Editor userIdEditor;
 
     DbHelper mDbHelper = new DbHelper(LoginActivity.this);
 
@@ -102,7 +104,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, IndexActivity.class);
                                 intent.putExtra("userEmail",Email);
-                                intent.putExtra("userID", response);
+                                String userId = "";
+                                for(int i=1;i<response.length()-1;i++){
+                                    userId+=response.charAt(i);
+                                }
+                                userPreference = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+                                userIdEditor = userPreference.edit();
+                                userIdEditor.putString("UserId",userId);
+                                userIdEditor.apply();
                                 startActivity(intent);
                                 finish();
                             }

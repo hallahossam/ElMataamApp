@@ -1,5 +1,6 @@
 package com.example.halla.elmataamapp;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -187,6 +189,15 @@ public class SearchActivity extends AppCompatActivity implements FloatingActionM
 
         mCustomAdapter = new CustomAdapter(resName, resRate, SearchActivity.this);
         mListView.setAdapter(mCustomAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SearchActivity.this,RestaurantProfileActivity.class);
+                intent.putExtra("resName",resName.get(position));
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+        });
 
 
     }

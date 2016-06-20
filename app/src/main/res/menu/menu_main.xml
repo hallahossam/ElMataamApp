@@ -3,13 +3,9 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/search"
-          android:icon="@android:drawable/ic_menu_search"
+          android:icon="@drawable/ic_search_white_36dp"
           android:title="Search"
           app:actionViewClass="android.support.v7.widget.SearchView"
-          app:showAsAction="always"/>
-    <item android:id="@+id/notification"
-          android:icon="@drawable/notification"
-          android:title="Notification"
           app:showAsAction="always"/>
 
     <item android:id="@+id/check_in"

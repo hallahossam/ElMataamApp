@@ -32,6 +32,7 @@ public class TrustedFragment extends Fragment {
         Bundle bundle = getArguments();
         String userId = bundle.getString("userId");
 
+
         return view;
     }
 
